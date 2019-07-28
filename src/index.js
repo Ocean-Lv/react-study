@@ -11,9 +11,11 @@ const user = {
     firstName: 'tom',
     lastName: 'jerry'
 }
+
 function userName(user) {
     return user.firstName + '、' + user.lastName;
 }
+
 const html = <p>dom 元素也可以做为表达式</p>
 
 // 数组转化成字符串显示
