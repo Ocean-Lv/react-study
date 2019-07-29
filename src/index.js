@@ -9,6 +9,6 @@ import App from './App';
 //React 负责逻辑控制，例如：修改数据->vdom
 //ReactDom 负责渲染vdom->dom
 ReactDom.render(
-    <App></App>,
+    <App title="title 属性传值"></App>,
     document.getElementById('root')
 )
