@@ -3,6 +3,7 @@ import JsxTest from './components/JsxTest';
 import StateMgt from './components/StateMgt';
 import EventHandle from './components/EventHandle';
 
+import Index from './components/songTable/Index'
 // import React, { Component } from 'react'
 
 // export class App extends Component {
@@ -22,10 +23,11 @@ import EventHandle from './components/EventHandle';
 export default function App(props) {
     return (
         <div>
-            <h1>{props.title}</h1>
+            {/* <h1>{props.title}</h1> */}
             {/* <JsxTest /> */}
-            <StateMgt />
-            <EventHandle />
+            {/* <StateMgt /> */}
+            {/* <EventHandle /> */}
+            <Index></Index>
         </div>
     )
 }
