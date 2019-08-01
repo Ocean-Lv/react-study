@@ -29,7 +29,7 @@ export class Main extends Component {
                                 <Song
                                     key={index}
                                     data={val}
-                                    index={index}
+                                    index={val.id}
                                     setCheck={this.props.setCheck} 
                                     setlike={this.props.setlike} 
                                     remove={this.props.remove}

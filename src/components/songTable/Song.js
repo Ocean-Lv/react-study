@@ -21,7 +21,7 @@ export class Song extends Component {
                      }} />
                 </td>
                 <td>
-                    <a href="#" onClick={()=>{
+                    <a href="javascript:void(0)" onClick={()=>{
                         this.props.remove(this.props.index)
                     }}>X</a>
                 </td>
