@@ -4,6 +4,7 @@ import StateMgt from './components/StateMgt';
 import EventHandle from './components/EventHandle';
 import ContextTest from './components/ContextTest';
 
+import Index from './components/songTable/Index'
 // import React, { Component } from 'react'
 
 // export class App extends Component {
@@ -23,10 +24,11 @@ import ContextTest from './components/ContextTest';
 export default function App(props) {
     return (
         <div>
-            <h1>{props.title}</h1>
+            {/* <h1>{props.title}</h1> */}
             <JsxTest />
-            <StateMgt />
-            <EventHandle />
+            {/* <StateMgt /> */}
+            {/* <EventHandle /> */}
+            <Index></Index>
             <ContextTest />
         </div>
     )
