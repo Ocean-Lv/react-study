@@ -10,7 +10,11 @@ export class Main extends Component {
                     <thead>
                         <tr>
                             <th>
-                                <input type="checkbox" id="checkAll" name="checkAll" />
+                                <input type="checkbox" id="checkAll" name="checkAll"
+                                    checked={this.props.checkAll} 
+                                    onChange={(e)=>{
+                                        this.props.setCheckAll(e.target.checked)
+                                    }} />
                                 <label htmlFor="checkAll">全选</label>
                             </th>
                             <th>歌曲</th>
@@ -25,6 +29,10 @@ export class Main extends Component {
                                 <Song
                                     key={index}
                                     data={val}
+                                    index={index}
+                                    setCheck={this.props.setCheck} 
+                                    setlike={this.props.setlike} 
+                                    remove={this.props.remove}
                                     />
                             )
                         })}

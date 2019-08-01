@@ -41,15 +41,130 @@ export class Index extends Component {
     constructor(){
         super(...arguments);
         this.state = {
-            data: songs
+            data: songs,
+            listState: true
         }
+        this.add = this.add.bind(this);
+        this.setCheckAll = this.setCheckAll.bind(this);
+        this.setCheck = this.setCheck.bind(this);
+        this.setlike = this.setlike.bind(this);
+        this.remove = this.remove.bind(this);
+        this.removeSelected = this.removeSelected.bind(this);
+        this.likeSelect = this.likeSelect.bind(this);
+        this.canceLikeSelect = this.canceLikeSelect.bind(this);  
+        this.showLikeList = this.showLikeList.bind(this);  
     }
+    add(title, singer){
+        let data = this.state.data;
+        data.push({
+            title: title,
+            singer: singer,
+            selected: false,
+            like: false
+        });
+        this.setState({
+            data
+        })
+    }
+    isCheckAll(){
+        let data = this.state.data;
+        for(var i=0; i<data.length; i++) {
+            if(!data[i].selected){
+                return false;
+            }
+        }
+        return true;
+    }
+    setCheckAll(checked){
+        let data = this.state.data.map((val, index)=>{
+            val.selected = checked;
+            return val;
+        })
+        this.setState({
+            data
+        })
+    }
+    setCheck(index, checked){
+        let data = this.state.data;
+        data[index].selected = checked;
+        this.setState({
+            data
+        })
+    }
+    setlike(index, checked){
+        let data = this.state.data;
+        data[index].like = checked;
+        this.setState({
+            data
+        }) 
+    }
+    remove(index){
+        let data = this.state.data.filter((val,i)=>i!=index);
+        this.setState({
+            data
+        }) 
+    }
+    removeSelected(){
+        let data = this.state.data.filter((val)=>!val.selected);
+        this.setState({
+            data
+        }) 
+    }
+    likeSelect(){
+        let data = this.state.data.map((val)=>{
+            if(val.selected){
+                val.like = true
+            }
+            return val;
+        })
+        this.setState({
+            data
+        }) 
+    }
+    canceLikeSelect(){
+        let data = this.state.data.map((val)=>{
+            if(val.selected){
+                val.like = false
+            }
+            return val;
+        })
+        this.setState({
+            data
+        }) 
+    }
+    showLikeList(state){
+        this.setState({
+            listState: state
+        }) 
+    }
+
     render() {
+        let selectedData = this.state.data.filter((val)=>val.selected);
+        let likeData = this.state.data.filter((val)=>val.like);
         return (
             <div id="musicApp">
-                <Header></Header>
-                <Main data={this.state.data}></Main>
-                <Footer></Footer>
+                <Header 
+                    add={this.add}>
+                </Header>
+                <Main data={this.state.listState?this.state.data:likeData}
+                    checkAll={this.isCheckAll()} 
+                    setCheckAll={this.setCheckAll} 
+                    setCheck={this.setCheck} 
+                    setlike={this.setlike} 
+                    remove={this.remove}
+                    >
+                </Main>
+                <Footer
+                    length={this.state.data.length}
+                    selectedLength={selectedData.length} 
+                    listState={this.state.listState} 
+                    likeData = {likeData.length} 
+                    removeSelected = {this.removeSelected} 
+                    likeSelect= {this.likeSelect} 
+                    canceLikeSelect={this.canceLikeSelect} 
+                    showLikeList = {this.showLikeList}
+                    >
+                </Footer>
             </div>
         )
     }
