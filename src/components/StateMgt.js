@@ -16,7 +16,7 @@ class Clock extends Component {
             this.setState({
                 date: new Date()
             }, ()=>{    //通知父组件，子组件变更
-                this.props.change(this.state.date)
+                // this.props.change(this.state.date)
             })
         },1000);
     }
@@ -40,7 +40,8 @@ export default function StateMgt() {
     return (
         <div>
             {/* 给子组件传事件，获取子组件变更value */}
-            <Clock change={(date)=>{console.log(date.toLocaleTimeString())}}></Clock>
+            {/* <Clock change={(date)=>{console.log(date.toLocaleTimeString())}}></Clock> */}
+            <Clock></Clock>
         </div>
     )
 }

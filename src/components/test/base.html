@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <style>
+    /* this.state.show */
+    .listWrap {
+        height: 0;
+        overflow: hidden;
+        transition: 0.5s;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+        var data_list = {
+            friend: {
+                name: '朋友',
+                list:[{fname:'tom',age: 10},{fname:'peter',age: 12}]
+            },
+            families:{
+                name: '家人',
+                list:[{fname:'hellen',age: 22},{fname:'jeny',age: 18}]
+            },
+            mate:{
+                name: '同事',
+                list:[{fname:'hellen',age: 22},{fname:'jeny',age: 18}]
+            }
+        }
+
+        class List extends React.Component {
+
+            render(){
+                return (
+                    <ul>
+                        {this.props.list.map(function (val,index) {
+                            return (
+                                <li key={index}>
+                                    <span>{val.fname}</span> - <span>{val.age}</span>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                )
+            }
+        }
+
+        class Item extends React.Component {
+            constructor(){
+                super(...arguments);
+                this.state = {
+                    show: this.props.show
+                }
+            }
+
+            //生命周期，更新
+            shouldComponentUpdate(nextProps, nextState){
+                // console.log(nextProps)
+                // console.log(nextState)
+                if (this.state.show != nextProps.show) {
+                    console.log(this.state.show);
+                    console.log(nextState.show);
+
+                    this.setState({
+                        show: nextProps.show
+                    })
+                }
+                if(this.state.show != nextState.show){
+                    this.showList(nextState.show)
+                }
+                return false;
+            }
+            showList(show){
+                var list = this.refs.list;
+                if(show){
+                    list.style.height = list.scrollHeight + "px";
+                } else {
+                    list.style.height = 0;
+                }
+            }
+            //生命周期，挂载之后
+            componentDidMount(){
+                console.log("挂载完成");
+                // console.log(this.refs.list)
+                this.showList(this.state.show)
+            }
+            changeList (){
+                let show = !this.state.show;
+                this.setState({
+                    show
+                })
+                if(show) {
+                    // console.log(this.props.onchange)
+                    this.props.onchange(this.props.index)
+                }
+            }
+            render(){
+                return (
+                    <div>
+                        <h4 onClick={this.changeList.bind(this)}>{this.props.data.name}</h4>
+                        <div className="listWrap" ref="list">
+                            <List list={this.props.data.list}></List>
+                        </div>
+                    </div>
+                )
+            }
+        }
+        class Base extends React.Component {
+            constructor(){
+                super();
+                this.state = {
+                    showList:[true, false, false]
+                }
+                this.changeShowList = this.changeShowList.bind(this);
+            }
+            changeShowList(i){
+                //需要第几个显示
+                console.log(i)
+                let showList = this.state.showList.map((val,index)=>{
+                    if(i == index) {
+                        return true
+                    } 
+                    return false
+                })
+                console.log("showList")
+                this.setState({
+                    showList
+                })
+                console.log(this.state.showList)
+            }
+            setShow () {
+                var list = Object.keys(data_list).map((val,index) => {
+                    return (
+                        <Item 
+                        data={data_list[val]} 
+                        key={index} 
+                        show={this.state.showList[index]} 
+                        index = {index}
+                        onchange = {this.changeShowList}
+                        />
+                        )
+                })
+                return list
+            }
+            render() {
+                return (
+                    <div>
+                        <h1>react test</h1>
+                        {this.setShow()} 
+                    </div>
+                )
+            }
+        }
+    
+        ReactDOM.render(
+            <Base />,
+            document.getElementById('app')
+        )
+        
+    </script>
+</body>
+
+</html>

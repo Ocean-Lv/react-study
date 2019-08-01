@@ -31,7 +31,7 @@ export class JsxTest extends Component {
                 <ul>{arr}</ul>
                 {/* 属性：静态值用用双引号，动态值用花括号 */}
                 {/* <img src={logo} alt="logo" style={ {width:100} } className="logo"/> */}
-                <img src={logo} alt="logo" style={{ width: 100 }} className={style.logo} />
+                <img src={logo} alt="logo" style={{ width: 100 }} className={style.logo2} />
             </div>
         );
     }

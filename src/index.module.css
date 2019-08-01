@@ -1,3 +1,7 @@
 .logo {
     border: 1px solid green;
 }
+.logo2{
+    composes: logo;
+    background: rgb(158, 158, 158);
+}
